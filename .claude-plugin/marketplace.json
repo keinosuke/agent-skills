@@ -1,0 +1,16 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "agent-skills",
+  "owner": {
+    "name": "keinosuke",
+    "url": "https://github.com/keinosuke"
+  },
+  "plugins": [
+    {
+      "name": "agent-skills",
+      "source": "./",
+      "category": "productivity",
+      "description": "Two-layer review reports: a plain-language explanation for the person deciding, plus file paths, line numbers, and repro conditions for the agent making the fix."
+    }
+  ]
+}

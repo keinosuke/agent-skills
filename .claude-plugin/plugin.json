@@ -1,0 +1,21 @@
+{
+  "name": "agent-skills",
+  "version": "0.1.0",
+  "description": "Reusable skills for coding agents. Includes review-report-format, which turns review, audit, and investigation findings into a two-layer report: a plain-language explanation a non-engineer can act on, plus a technical note with file paths, line numbers, repro conditions, and a proposed fix that a coding agent can execute from.",
+  "author": {
+    "name": "keinosuke",
+    "url": "https://github.com/keinosuke"
+  },
+  "repository": "https://github.com/keinosuke/agent-skills",
+  "license": "MIT",
+  "keywords": [
+    "code-review",
+    "pull-request",
+    "review",
+    "audit",
+    "report",
+    "documentation",
+    "japanese",
+    "日本語"
+  ]
+}
