@@ -174,7 +174,31 @@ and the values that came back.
 
 Use it for things that may be deliberate, are low-impact, or concern intent and consistency.
 Label them A, B, C so the discussion can reference them. Two to four sentences, ending in an
-actual question ("Is that intentional?"). Attach the same technical note block.
+actual question. Attach the same technical note block.
+
+**The plain-language layer is not optional here.** An open question gets the same treatment as a
+must-fix: open from the domain fact, not the identifier. A reader who does not know the codebase
+should understand what breaks and why it matters before any symbol name appears. File paths,
+function names and commit hashes belong in the technical note. Brevity is not a licence to fall
+back on symbol names — a short paragraph of plain prose is shorter than a long one full of
+identifiers.
+
+**Ask only when the author plausibly made a choice.** Evidence of a choice looks like: a comment
+explaining the trade-off, a test pinning the behaviour, a line in the spec, or a reply defending
+it. Where that evidence exists, "Is that intentional?" is a real question.
+
+**Where nothing suggests the case was considered, do not ask whether it is acceptable.** Say
+plainly that the case looks unhandled, then ask which direction they want — or propose one and
+ask whether it is feasible, leaving room for them to offer a better option from their knowledge
+of the code. "Is this acceptable?" invites a rubber stamp and hands the thinking back to the
+author for no reason.
+
+Never ask a question whose answer you can already predict. If any answer but one would surprise
+you, you are not asking — you are softening a finding. State it, and propose the fix.
+
+**Use your own vocabulary for severity, not the author's.** If they label their fixes with terms
+your review never used, do not adopt those terms to describe your own findings — check what you
+actually wrote last time and stay consistent, or the two of you end up counting different things.
 
 ## "What is good here"
 
