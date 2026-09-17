@@ -73,6 +73,15 @@ scratch setup (a shared `node_modules`, a missing native binary, absent credenti
 explicitly in the same line where you report the count. A bare "1 failing" attributed to the
 change under review is a false finding, and it is the kind that spreads.
 
+**Changing a constant: grep for the old value, not the new name.** When a change alters a
+limit, count, or threshold, the dangerous call sites are the ones that never referenced the
+constant — a hardcoded `[0, 1, 2, 3]`, `slice(0, 4)`, or `length: 4`. Searching for the
+constant's name finds only the places that were already correct, so the search that matters is
+for the old literal. Check the writer and the reader as a pair: a form that renders N rows and
+a handler that collects N rows are two halves of one invariant, and changing only one silently
+drops the extra data with no error anywhere. This applies when you are the one making the
+change, not only when reviewing someone else's.
+
 **Record the exact revision you reviewed.** Everything below is anchored to it.
 
 ## Overall structure
