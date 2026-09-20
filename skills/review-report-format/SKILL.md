@@ -82,6 +82,21 @@ a handler that collects N rows are two halves of one invariant, and changing onl
 drops the extra data with no error anywhere. This applies when you are the one making the
 change, not only when reviewing someone else's.
 
+**Look for an existing solution before proposing a new one.** The same problem has often been
+solved elsewhere in the codebase, and the earlier solution usually carries its reasoning in a
+comment next to it. Search for the domain words, not the identifier — "town name", "match",
+"normalize" — because searching for the new code's symbols only finds the new code. Check whether
+a data table or master list already covers the case before proposing logic for it.
+
+This changes the shape of the finding. Instead of "this could resolve to the wrong town", you can
+write "the registry path solves the same case in `isKoazaRemainder()` by requiring corroboration
+before accepting a match - could the same approach work here?". The author gets a concrete
+reference instead of a problem statement, and the codebase keeps one answer per question rather
+than two. Put the file and line in the technical note so an agent can read it directly.
+
+If you looked and found nothing comparable, say so. "No existing helper covers this" is useful
+information; silence reads as "did not check".
+
 **Record the exact revision you reviewed.** Everything below is anchored to it.
 
 ## Overall structure
