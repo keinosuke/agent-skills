@@ -23,6 +23,12 @@ So every piece of content is written in two layers, and this skill names them:
 The principle: **reading only the menu is enough to decide, and reading only the recipe is
 enough to build.** Neither layer may lean on the other to be understood.
 
+**"Menu" and "recipe" are this skill's working vocabulary, not labels for the output.** Do not
+print them as headings or labels in a report, PR body, or issue body — a reader who has not
+seen this skill does not know what a "recipe" is. In the output, the menu has no label of its
+own (it is simply the body), and the recipe is labelled **"Technical note (for agents)"** —
+in Japanese, **「技術メモ（エージェント向け）」**.
+
 ## Scope
 
 Code review, pull request review, security audit, design review, spec/instruction-document
@@ -149,8 +155,7 @@ Headings follow the language of the report body (rule 4). Japanese set:
 | Open questions | 確認したい点 |
 | Minor (no action proposed) | 細かい点（対応不要と判断したもの） |
 | What is good here | 良かった点（次に触る人が壊さないでほしいところ） |
-| Menu | 献立 |
-| Recipe (for agents) | レシピ（エージェント向け）。中身は英語のままでも可 |
+| Technical note (for agents) | 技術メモ（エージェント向け）。中身は英語のままでも可 |
 
 The Menu/Recipe split applies inside each finding: everything above the recipe block is menu,
 the block is the recipe.
@@ -181,7 +186,7 @@ reviewer's suggestion from being applied blindly.>
 <What to do, phrased as a request. A rough size ("probably a few lines") helps triage.>
 
 ```
-Recipe (for agents)
+Technical note (for agents)
 - <path>:<line>  <identifier or value>
 - <related function / variable and the branch condition>
 - Repro: <the order of operations or state that triggers it>
@@ -306,7 +311,7 @@ person decided it, the date. Omit the section if there were none.>
 ## User-facing explanation
 <Changes to user documentation, help pages, or announcements. Omit if none.>
 
-<details><summary>Recipe (for agents)</summary>
+<details><summary>Technical note (for agents)</summary>
 
 ```
 Closes #<issue>
@@ -357,7 +362,7 @@ The code locations go in the recipe.>
 <Questions only a person can answer — policy, cost, spec. Each phrased as an actual question.
 Omit if none.>
 
-<details><summary>Recipe (for agents)</summary>
+<details><summary>Technical note (for agents)</summary>
 
 ```
 - <path>:<line>  <identifier and the branch condition>
@@ -388,7 +393,7 @@ Omit if none.>
 | What was checked | 確認したこと |
 | Proposed fixes (in order of preference) | 直し方の案（推奨順） |
 | Decisions needed | 決めてほしいこと |
-| Recipe (for agents) | レシピ（エージェント向け） |
+| Technical note (for agents) | 技術メモ（エージェント向け） |
 
 ## Where the output goes
 

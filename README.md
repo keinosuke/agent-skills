@@ -18,10 +18,11 @@ audience and lose the other.
 So each finding is written twice. The **menu** (献立) is the symptom and its business impact in
 prose — enough to decide from. The **recipe** (レシピ) is a fenced block with the exact anchors —
 enough to build from. Reading only the menu is enough to decide; reading only the recipe is
-enough to build.
+enough to build. "Menu" and "recipe" are the skill's working vocabulary — the output itself
+labels the recipe "Technical note (for agents)" (技術メモ), so readers never see the jargon.
 
 ```
-Recipe (for agents)
+Technical note (for agents)
 - app/src/adapters/suumo/module.ts:50  cancelRemovesListing: true
 - Repro: cancel succeeds -> re-submit before the portal's scheduled deletion
 - Proposed fix: block re-submission while canceledListingRef is set
