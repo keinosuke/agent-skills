@@ -157,7 +157,7 @@ the block is the recipe.
 
 ## Shape of one must-fix
 
-```markdown
+````markdown
 ## Must-fix N. <symptom in one sentence>
 
 **What happens**
@@ -187,7 +187,7 @@ Recipe (for agents)
 - Repro: <the order of operations or state that triggers it>
 - Proposed fix: <what changes, and to what>
 ```
-```
+````
 
 Put the recipe in a plain code fence (no language tag) so humans skip it and agents can
 lift it verbatim. **Always include file path and line number** — an identifier alone is not
