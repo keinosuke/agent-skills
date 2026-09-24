@@ -1,7 +1,7 @@
 {
   "name": "agent-skills",
   "version": "0.1.0",
-  "description": "Reusable skills for coding agents. Includes review-report-format, which turns review, audit, and investigation findings into a two-layer report: a plain-language explanation a non-engineer can act on, plus a technical note with file paths, line numbers, repro conditions, and a proposed fix that a coding agent can execute from.",
+  "description": "Reusable skills for coding agents. Includes menu-recipe (献立とレシピ), which writes review, audit, and investigation findings, pull request bodies, and issue bodies in two layers: a menu a non-engineer can decide from, plus a recipe with file paths, line numbers, repro conditions, and the fix that a coding agent can execute from.",
   "author": {
     "name": "keinosuke",
     "url": "https://github.com/keinosuke"

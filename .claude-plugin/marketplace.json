@@ -10,7 +10,7 @@
       "name": "agent-skills",
       "source": "./",
       "category": "productivity",
-      "description": "Two-layer review reports: a plain-language explanation for the person deciding, plus file paths, line numbers, and repro conditions for the agent making the fix."
+      "description": "Menu and recipe (献立とレシピ): reviews, PR bodies, and issue bodies in two layers — a menu for the person deciding, plus a recipe with file paths, line numbers, and repro conditions for the agent making the fix."
     }
   ]
 }

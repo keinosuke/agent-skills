@@ -6,20 +6,22 @@ Reusable skills for coding agents (Claude Code, Codex, Gemini CLI, Cursor, …).
 
 | Skill | What it does |
 |-------|--------------|
-| [review-report-format](skills/review-report-format/SKILL.md) | Turns review, audit, and investigation findings into a two-layer report: a plain-language explanation the decision-maker can act on, plus file paths, line numbers, repro conditions, and a proposed fix the agent can execute from — verified by running the code, not just reading it |
+| [menu-recipe](skills/menu-recipe/SKILL.md) | Writes reviews, audits, investigation findings, pull request bodies, and issue bodies as a "menu and recipe" (献立とレシピ): a menu the decision-maker can act on in plain language, plus a recipe with file paths, line numbers, repro conditions, and the fix the agent can execute from — verified by running the code, not just reading it |
 
-### Why two layers
+### Why two layers — the menu and the recipe
 
-A review has two audiences. The person deciding what to do is often not an engineer and cannot
+A review, a pull request, and an issue all have two audiences. The person deciding what to do is often not an engineer and cannot
 evaluate a finding written as `cancelRemovesListing is inconsistent`. The agent making the fix
 cannot act on a finding written as "the delete flow has a problem". Most reviews pick one
 audience and lose the other.
 
-So each finding is written twice — the symptom and its business impact in prose, then a fenced
-block with the exact anchors:
+So each finding is written twice. The **menu** (献立) is the symptom and its business impact in
+prose — enough to decide from. The **recipe** (レシピ) is a fenced block with the exact anchors —
+enough to build from. Reading only the menu is enough to decide; reading only the recipe is
+enough to build.
 
 ```
-Technical note (for agents)
+Recipe (for agents)
 - app/src/adapters/suumo/module.ts:50  cancelRemovesListing: true
 - Repro: cancel succeeds -> re-submit before the portal's scheduled deletion
 - Proposed fix: block re-submission while canceledListingRef is set
@@ -70,11 +72,15 @@ read it as a plain document.
 git clone git@github.com:keinosuke/agent-skills.git ~/develop/agent-skills
 
 # Claude Code
-ln -sfn ~/develop/agent-skills/skills/review-report-format ~/.claude/skills/review-report-format
+ln -sfn ~/develop/agent-skills/skills/menu-recipe ~/.claude/skills/menu-recipe
 
 # agent-neutral location
-ln -sfn ~/develop/agent-skills/skills/review-report-format ~/.agents/skills/review-report-format
+ln -sfn ~/develop/agent-skills/skills/menu-recipe ~/.agents/skills/menu-recipe
 ```
+
+Migrating from the old name: remove the old `review-report-format` symlinks
+(`rm ~/.claude/skills/review-report-format ~/.agents/skills/review-report-format`) and create the
+new ones above — otherwise the old link points at a directory that no longer exists.
 
 ## Layout
 

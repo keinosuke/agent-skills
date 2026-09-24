@@ -1,22 +1,33 @@
 ---
-name: review-report-format
+name: menu-recipe
 description: |
-  Format review, audit, and investigation findings as a two-layer report that a non-engineer can act on and a coding agent can execute from. Use for code review, pull request review, security audit, design review, spec or instruction-document review, and research write-ups. Triggers on "review this", "review the PR", "audit this", "check this code", "summarize the findings", "write up the review", "look over this spec". 日本語でも起動する: 「レビューして」「PR を見て」「監査して」「指摘をまとめて」「レビュー結果を書いて」「指示書を確認して」。Produces output that can be pasted directly into a GitHub PR comment.
+  Write anything that two audiences must read — a person who decides and an agent who builds — as a "menu and recipe" (献立とレシピ): a menu a non-engineer can decide from, plus a recipe with file paths, line numbers, repro steps, and the fix that a coding agent can execute from. Use for code review, pull request review, security audit, design review, spec or instruction-document review, research write-ups, pull request bodies, and issue bodies. Triggers on "review this", "review the PR", "audit this", "check this code", "summarize the findings", "write up the review", "look over this spec", "write the PR description", "open a PR", "create a pull request", "file an issue", "open an issue", "write it as menu and recipe". 日本語でも起動する: 「レビューして」「PR を見て」「監査して」「指摘をまとめて」「レビュー結果を書いて」「指示書を確認して」「献立とレシピで書いて」「PR を作って」「PR の本文を書いて」「Issue を起票して」「Issue にして」。Produces output that can be pasted directly into a GitHub PR comment, PR body, or issue body.
 ---
 
-# Two-layer review report format
+# Menu and recipe (献立とレシピ): two-layer reports, PRs, and issues
 
-A review has two audiences: the **person deciding what to do** (often not an engineer) and the
-**agent that will make the fix**. Write only for one and you get a report the human cannot
-evaluate, or one the agent cannot act on.
+A review, a pull request, and an issue all have two audiences: the **person deciding what to do**
+(often not an engineer) and the **agent that will do the work**. Write only for one and you get
+a text the human cannot evaluate, or one the agent cannot act on.
 
-So every finding is written twice: a plain-language explanation, followed by a technical note
-block with the exact anchors.
+So every piece of content is written in two layers, and this skill names them:
+
+- **Menu (献立)** — the layer for the person who decides. Like a menu, it says what will be
+  served and what it costs, in words anyone can read, so they can choose. Symptoms, impact,
+  decisions, what was and was not checked. **No identifiers, file names, type names, or API
+  names.**
+- **Recipe (レシピ)** — the layer for the agent who builds. Like a recipe, it is exact enough to
+  reproduce the dish without asking: file paths with line numbers, identifiers and values, the
+  repro, the fix, the tests and commands that were run.
+
+The principle: **reading only the menu is enough to decide, and reading only the recipe is
+enough to build.** Neither layer may lean on the other to be understood.
 
 ## Scope
 
 Code review, pull request review, security audit, design review, spec/instruction-document
-review, research reports. Anything whose deliverable is a list of findings.
+review, research reports — anything whose deliverable is a list of findings. Also **pull request
+bodies** and **issue bodies** (see "Shape of a PR body" and "Shape of an issue body").
 
 This skill is agent-neutral: it assumes only a shell, `git`, and — for GitHub targets — the
 `gh` CLI. It does not depend on any one agent's tool names or settings. Everything it requires
@@ -138,7 +149,11 @@ Headings follow the language of the report body (rule 4). Japanese set:
 | Open questions | 確認したい点 |
 | Minor (no action proposed) | 細かい点（対応不要と判断したもの） |
 | What is good here | 良かった点（次に触る人が壊さないでほしいところ） |
-| Technical note (for agents) | そのまま英語で可（エージェント向けブロックのため） |
+| Menu | 献立 |
+| Recipe (for agents) | レシピ（エージェント向け）。中身は英語のままでも可 |
+
+The Menu/Recipe split applies inside each finding: everything above the recipe block is menu,
+the block is the recipe.
 
 ## Shape of one must-fix
 
@@ -166,7 +181,7 @@ reviewer's suggestion from being applied blindly.>
 <What to do, phrased as a request. A rough size ("probably a few lines") helps triage.>
 
 ```
-Technical note (for agents)
+Recipe (for agents)
 - <path>:<line>  <identifier or value>
 - <related function / variable and the branch condition>
 - Repro: <the order of operations or state that triggers it>
@@ -174,7 +189,7 @@ Technical note (for agents)
 ```
 ```
 
-Put the technical note in a plain code fence (no language tag) so humans skip it and agents can
+Put the recipe in a plain code fence (no language tag) so humans skip it and agents can
 lift it verbatim. **Always include file path and line number** — an identifier alone is not
 enough to locate the target. Prefer a repro you actually executed, pasted as the calls you made
 and the values that came back.
@@ -183,12 +198,12 @@ and the values that came back.
 
 Use it for things that may be deliberate, are low-impact, or concern intent and consistency.
 Label them A, B, C so the discussion can reference them. Two to four sentences, ending in an
-actual question. Attach the same technical note block.
+actual question. Attach the same recipe block.
 
-**The plain-language layer is not optional here.** An open question gets the same treatment as a
+**The menu is not optional here.** An open question gets the same treatment as a
 must-fix: open from the domain fact, not the identifier. A reader who does not know the codebase
 should understand what breaks and why it matters before any symbol name appears. File paths,
-function names and commit hashes belong in the technical note. Brevity is not a licence to fall
+function names and commit hashes belong in the recipe. Brevity is not a licence to fall
 back on symbol names — a short paragraph of plain prose is shorter than a long one full of
 identifiers.
 
@@ -262,13 +277,128 @@ When combining subagent or multi-tool results, order them:
 Where another reviewer's conclusion is incomplete, say so plainly: "Both agents suggest flipping
 the flag, but that leaves failure mode Y, so it is not sufficient."
 
+## Shape of a PR body
+
+A pull request body is read by the person who approves the merge and by the agent (or human)
+who reviews or later continues the work. Write the menu first, in prose a non-engineer can
+follow, then the recipe folded away.
+
+```markdown
+## What changes
+<What the user or operator will notice after this merges. 1-3 sentences. No identifiers.>
+
+## What was wrong
+<The problem this solves, from the user's side: what happened, who was affected, what it cost.
+Say explicitly whether money, external effects, or data were involved — or that they were not.>
+
+## Decisions
+<Choices made in this PR that someone might question later, each with the reason and, where a
+person decided it, the date. Omit the section if there were none.>
+
+## Verified / not verified
+- Verified: <what was actually run or reproduced, and what came out>
+- Not verified: <what was not checked, and why>
+- <Which environments were and were not touched — production, staging, external services>
+
+## Not fixed in this PR
+<Known problems left out of scope, and where they will be handled. Omit if none.>
+
+## User-facing explanation
+<Changes to user documentation, help pages, or announcements. Omit if none.>
+
+<details><summary>Recipe (for agents)</summary>
+
+```
+Closes #<issue>
+- <path>:<line>  <what changed>
+- Repro (before the change, @ <revision>): <how the old behaviour was reproduced>
+- Tests: <files and counts>; <what was removed to confirm each test fails without the change>
+- Commands: <test / type-check commands and results>
+```
+</details>
+```
+
+- **Headings name outcomes, not code.** "What changes" is answered with what a user sees, not
+  with the functions that were edited. Identifiers, file names, and commit hashes go in the
+  recipe only.
+- **On GitHub, fold the recipe** in a `<details>` block so the page opens on the menu. Keep the
+  recipe inside a plain code fence within it, as for findings.
+- **"Verified / not verified" follows rule 2.** Never let the menu imply more testing than the
+  recipe records.
+- Keep the `🤖 Generated with ...` or equivalent attribution line if your environment requires
+  one; it goes after the recipe.
+
+## Shape of an issue body
+
+An issue is read by the person who prioritises it and by whoever picks it up. The menu must let
+the prioritiser decide without opening the code; the recipe must let the implementer start
+without re-investigating.
+
+```markdown
+## What is happening
+<The symptom, as a user or operator would observe it. Use a concrete example. No identifiers.>
+
+## Impact
+<Who is hurt and how, in business terms. Say how often it happens — or that frequency was not
+measured.>
+
+## Cause
+<Why it happens, in plain words ("the whole fetch is marked complete even when one lot fails").
+The code locations go in the recipe.>
+
+## What was checked
+<What was actually run or reproduced, what was only read, and what was not checked (rule 2).>
+
+## Proposed fixes (in order of preference)
+1. <Option, with a rough size and what it depends on>
+2. ...
+
+## Decisions needed
+<Questions only a person can answer — policy, cost, spec. Each phrased as an actual question.
+Omit if none.>
+
+<details><summary>Recipe (for agents)</summary>
+
+```
+- <path>:<line>  <identifier and the branch condition>
+- Repro: <calls made and values that came back, @ <revision>>
+- Related: <issues / PRs>
+```
+</details>
+```
+
+- Rule 1 applies: an issue for which you cannot write a concrete repro or failure scenario is
+  a question, not an issue. File it as a question, or ask first.
+- Mark each proposed fix that needs a policy decision (money, external effects, spec changes)
+  so the prioritiser can see which ones they must decide on before anyone starts.
+
+### Japanese headings for PR and issue bodies
+
+| English | 日本語 |
+|---------|--------|
+| What changes | 何が変わるか |
+| What was wrong | 困っていたこと |
+| Decisions | 決めたこと |
+| Verified / not verified | 確かめたこと・確かめていないこと |
+| Not fixed in this PR | この PR では直していないこと |
+| User-facing explanation | 利用者向けの説明 |
+| What is happening | 何が起きているか |
+| Impact | 影響 |
+| Cause | 原因 |
+| What was checked | 確認したこと |
+| Proposed fixes (in order of preference) | 直し方の案（推奨順） |
+| Decisions needed | 決めてほしいこと |
+| Recipe (for agents) | レシピ（エージェント向け） |
+
 ## Where the output goes
 
 Default to writing the report into the conversation, formatted so it can be pasted straight into
 a PR comment. If it should be saved to a file, propose a path and wait.
 
-**Never post to GitHub or send anywhere external on your own initiative.** Posting is gated by
-three checks, all of which must pass immediately before the call that publishes:
+**Never post to GitHub or send anywhere external on your own initiative.** This covers review
+comments **and creating a pull request or an issue** (and editing an existing PR body, issue
+body, or comment). Posting is gated by three checks, all of which must pass immediately before
+the call that publishes:
 
 1. **Explicit approval for this exact text.** Present the full body and ask whether to post.
    **Approval expires the moment the body changes.** Edits, reorderings, tone changes, and
@@ -281,6 +411,11 @@ three checks, all of which must pass immediately before the call that publishes:
    git fetch <remote>
    gh pr view <N> --json headRefOid,updatedAt,comments
    ```
+
+   When creating a pull request, confirm the branch you are proposing is the one the body
+   describes (its head revision matches the recipe) and that the base has not moved in a way
+   that changes what the PR does. When filing an issue, confirm it is still reproducible at the
+   current revision and search for an existing issue that already covers it.
 
    If the head revision differs from the one on your `Target:` line, or comments have arrived
    that you have not read, **do not post**. Re-review at the new revision and rebuild the report;
