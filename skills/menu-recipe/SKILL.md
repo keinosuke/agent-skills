@@ -283,7 +283,7 @@ A pull request body is read by the person who approves the merge and by the agen
 who reviews or later continues the work. Write the menu first, in prose a non-engineer can
 follow, then the recipe folded away.
 
-```markdown
+````markdown
 ## What changes
 <What the user or operator will notice after this merges. 1-3 sentences. No identifiers.>
 
@@ -316,7 +316,7 @@ Closes #<issue>
 - Commands: <test / type-check commands and results>
 ```
 </details>
-```
+````
 
 - **Headings name outcomes, not code.** "What changes" is answered with what a user sees, not
   with the functions that were edited. Identifiers, file names, and commit hashes go in the
@@ -334,7 +334,7 @@ An issue is read by the person who prioritises it and by whoever picks it up. Th
 the prioritiser decide without opening the code; the recipe must let the implementer start
 without re-investigating.
 
-```markdown
+````markdown
 ## What is happening
 <The symptom, as a user or operator would observe it. Use a concrete example. No identifiers.>
 
@@ -365,7 +365,7 @@ Omit if none.>
 - Related: <issues / PRs>
 ```
 </details>
-```
+````
 
 - Rule 1 applies: an issue for which you cannot write a concrete repro or failure scenario is
   a question, not an issue. File it as a question, or ask first.
