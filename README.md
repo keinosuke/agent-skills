@@ -7,6 +7,7 @@ Reusable skills for coding agents (Claude Code, Codex, Gemini CLI, Cursor, …).
 | Skill | What it does |
 |-------|--------------|
 | [menu-recipe](skills/menu-recipe/SKILL.md) | Writes reviews, audits, investigation findings, pull request bodies, and issue bodies as a "menu and recipe" (献立とレシピ): a menu the decision-maker can act on in plain language, plus a recipe with file paths, line numbers, repro conditions, and the fix the agent can execute from — verified by running the code, not just reading it |
+| [deep-review](skills/deep-review/SKILL.md) | Multi-lane review engine: runs independent parallel lanes (perspective enumeration for depth, simplification for noise, a mechanical checklist for coverage), merges and verifies their findings, then hands the report to menu-recipe. Requires menu-recipe |
 
 ### Why two layers — the menu and the recipe
 
@@ -74,9 +75,11 @@ git clone git@github.com:keinosuke/agent-skills.git ~/develop/agent-skills
 
 # Claude Code
 ln -sfn ~/develop/agent-skills/skills/menu-recipe ~/.claude/skills/menu-recipe
+ln -sfn ~/develop/agent-skills/skills/deep-review ~/.claude/skills/deep-review
 
 # agent-neutral location
 ln -sfn ~/develop/agent-skills/skills/menu-recipe ~/.agents/skills/menu-recipe
+ln -sfn ~/develop/agent-skills/skills/deep-review ~/.agents/skills/deep-review
 ```
 
 Migrating from the old name: remove the old `review-report-format` symlinks
