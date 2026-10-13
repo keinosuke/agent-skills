@@ -8,6 +8,7 @@ Reusable skills for coding agents (Claude Code, Codex, Gemini CLI, Cursor, …).
 |-------|--------------|
 | [menu-recipe](skills/menu-recipe/SKILL.md) | Writes reviews, audits, investigation findings, pull request bodies, and issue bodies as a "menu and recipe" (献立とレシピ): a menu the decision-maker can act on in plain language, plus a recipe with file paths, line numbers, repro conditions, and the fix the agent can execute from — verified by running the code, not just reading it |
 | [deep-review](skills/deep-review/SKILL.md) | Multi-lane review engine: runs independent parallel lanes (perspective enumeration for depth, simplification for noise, a mechanical checklist for coverage), merges and verifies their findings, then hands the report to menu-recipe. Requires menu-recipe |
+| [writing-issues](skills/writing-issues/SKILL.md) | Writes and reviews issues so the assignee can start and finish from the issue alone: checks the draft against the code, separates decided from open, and states start conditions and completion criteria. Works with menu-recipe |
 
 ### Why two layers — the menu and the recipe
 
