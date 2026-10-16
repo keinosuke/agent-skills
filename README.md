@@ -63,8 +63,13 @@ which is not recoverable by editing the comment afterwards.
 
 ```
 /plugin marketplace add keinosuke/agent-skills
-/plugin install agent-skills@agent-skills
+/plugin install agent-skills@keinosuke-skills
 ```
+
+The marketplace is named `keinosuke-skills`, not `agent-skills`: Claude Code reserves
+`agent-skills` for official Anthropic marketplaces and refuses to add it from any other
+repository. If your settings still enable `agent-skills@agent-skills`, replace it with
+`agent-skills@keinosuke-skills`.
 
 ### Any agent (symlink)
 
